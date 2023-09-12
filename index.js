@@ -10,7 +10,7 @@ const PORT = 5000;
 
 app.use(express.static(__dirname + '/public')); // Serve static files from the 'public' directory
 app.set('view engine', 'hbs'); // Set Handlebars as the view engine
-// Set the directory for your Handlebars views (templates)
+// Set the directory for your Handlebars views (templates)/
 app.set('views', __dirname + '/views');
 
 app.use(bodyParser.urlencoded({extended:true}));
