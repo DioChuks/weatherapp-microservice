@@ -12,6 +12,29 @@ weatherRoute.post("/", (req, res) => {
   const apiKey = process.env.OPENWEATHER_API_KEY;
   const unit = req.body.unit;
 
-  
+  const url =
+    "https://api.openweathermap.org/data/2.5/weather?q=" +
+    city +
+    "&appid=" +
+    apiKey +
+    "&units=" +
+    unit +
+    "";
+  https.get(url, (response) => {
+    response.on("data", (chunk) => {
+      const responseData = JSON.parse(chunk);
+      const temperature = responseData.main.temp;
+      const weatherDes = responseData.weather[0].description;
+      const iconCode = responseData.weather[0].icon;
+      const cityName = responseData.name;
+      // Render the Handlebars template with the data
+      res.render("weather_template", {
+        temperature: temperature,
+        cityName: cityName,
+        weatherDes: weatherDes,
+        iconCode: iconCode,
+      });
+    });
+  });
 });
 module.exports = weatherRoute;
